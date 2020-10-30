@@ -1,0 +1,37 @@
+
+<div *ngIf="companies?.length == 0" class="alert alert-info">
+  No hay compañias
+</div>
+<div class="my-5 pr-4 text-right">
+
+  <button class="btn btn-primary" type="button" routerLink="/companies">Crear juego</button>
+</div>
+<div class="card border-primary mb-3" *ngIf="companies?.length > 0">
+  <div class="card-header">
+    Compañias
+    <button
+      type="button"
+      class="btn btn-primary float-right"
+      (click)="switchId()"
+    >
+      {{ showId ? "Ocultar" : "Mostrar" }}
+    </button>
+  </div>
+  <div class="card-body text-primary">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <th *ngIf="showId">ID</th>
+        <th>Nombre</th>
+        <th>CIF</th>
+        <th>Juegos</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of companies">
+          <td *ngIf="showId">{{ company.idCompany }}</td>
+          <td>{{ company.nombre }}</td>
+          <td>{{ company.cif }}</td>
+          <td><span *ngFor="let juego of company.juegos; index as i"><a [routerLink]="['/juegos/form', juego.idJuego]">{{ juego.titulo }}</a>{{(company.juegos.length > 1 && i < company.juegos.length - 1) ? ', ' : ''}}</span> </td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
